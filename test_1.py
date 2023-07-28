@@ -5,10 +5,33 @@
 # There's no perfect way to do this: just decide what you think is reasonable to get
 # the test to pass. The only thing you are not allowed to do is filter out log lines
 # based on the exact row numbers you want to remove.
+from datetime import datetime as dt
+
+
 def is_log_line(line):
     """Takes a log line and returns True if it is a valid log line and returns nothing
     if it is not.
     """
+    error_types = ['INFO', 'WARNING', 'TRACE']
+
+    separated_out = line.split()
+    if len(separated_out) < 5:
+        return None
+
+    date = separated_out[0] + ' ' + separated_out[1]
+    e_type = separated_out[2]
+    message = ' '.join(separated_out[3:])
+    try:
+        valid_date = dt.strptime(date, '%d/%m/%y %H:%M:%S')
+    except:
+        return None
+
+    if e_type not in error_types:
+        return None
+
+    if ':' not in message:
+        return None
+
     return True
 
 
@@ -21,7 +44,18 @@ def get_dict(line):
     """Takes a log line and returns a dict with
     `timestamp`, `log_level`, `message` keys
     """
-    pass
+    separated_out = line.split()
+
+    date_time = separated_out[0] + ' ' + separated_out[1]
+    e_type = separated_out[2]
+    message = ' '.join(separated_out[3:])
+
+    formatted_line = {}
+    formatted_line["timestamp"] = date_time
+    formatted_line["log_level"] = e_type
+    formatted_line["message"] = message
+
+    return formatted_line
 
 
 # YOU DON'T NEED TO CHANGE ANYTHING BELOW THIS LINE
