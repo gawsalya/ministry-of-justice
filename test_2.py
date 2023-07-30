@@ -34,7 +34,12 @@ if __name__ == "__main__":
         next(lines)
         for query in lines:
             raw_data = fetch_data(query[1])
-            court = filter_by_court_distance(raw_data, query[2])
+            try:
+                court = filter_by_court_distance(raw_data, query[2])
+            except:
+                court = {"name": "Not found",
+                         "dx_number": None, "distance": None}
+
             courts_table = add_person_matching_court_to_table(
                 courts_table, query, court)
 

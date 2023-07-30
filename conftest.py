@@ -22,15 +22,15 @@ def fake_sample_invalid_type():
 
 
 @pytest.fixture
-def example_court():
+def example_list():
     return [
         {
             "name": "Central London Employment Tribunal",
             "lat": 51.5158158439741,
             "lon": -0.118745425821452,
-            "number": null,
-            "cci_code": null,
-            "magistrate_code": null,
+            "number": None,
+            "cci_code": None,
+            "magistrate_code": None,
             "slug": "central-london-employment-tribunal",
             "types": [
                 "Tribunal"
@@ -52,10 +52,9 @@ def example_court():
                     "external_link_desc": "Information about the Employment Tribunal"
                 }
             ],
-            "displayed": true,
-            "hide_aols": false,
+            "displayed": True,
+            "hide_aols": False,
             "dx_number": "141420 Bloomsbury 7",
             "distance": 1.29
-        },
-        etc
+        }
     ]

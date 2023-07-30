@@ -33,6 +33,10 @@ def filter_by_court_distance(data: list, court_type) -> dict:
 
     sorted_by_distance = sorted(
         correct_type, key=lambda court: court['distance'])
+
+    if len(sorted_by_distance) == 0:
+        raise IndexError('No court with matching criteria')
+
     return sorted_by_distance[0]
 
 
