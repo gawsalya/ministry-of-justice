@@ -20,55 +20,22 @@
 # - distance
 # dx_number is not always returned and the "types" field can be empty.
 
-"""
-[
-    {
-        "name": "Central London Employment Tribunal",
-        "lat": 51.5158158439741,
-        "lon": -0.118745425821452,
-        "number": null,
-        "cci_code": null,
-        "magistrate_code": null,
-        "slug": "central-london-employment-tribunal",
-        "types": [
-            "Tribunal"
-        ],
-        "address": {
-            "address_lines": [
-                "Victory House",
-                "30-34 Kingsway"
-            ],
-            "postcode": "WC2B 6EX",
-            "town": "London",
-            "type": "Visiting"
-        },
-        "areas_of_law": [
-            {
-                "name": "Employment",
-                "external_link": "https%3A//www.gov.uk/courts-tribunals/employment-tribunal",
-                "display_url": "<bound method AreaOfLaw.display_url of <AreaOfLaw: Employment>>",
-                "external_link_desc": "Information about the Employment Tribunal"
-            }
-        ],
-        "displayed": true,
-        "hide_aols": false,
-        "dx_number": "141420 Bloomsbury 7",
-        "distance": 1.29
-    },
-    etc
-]
-"""
+from courts_functions import fetch_data, filter_by_court_distance, create_table, add_person_matching_court_to_table
+import csv
+from rich.console import Console
 
-# Use this API and the data in people.csv to determine how far each person's nearest
-# desired court is. Generate an output (of whatever format you feel is appropriate)
-# showing, for each person:
-# - name
-# - type of court desired
-# - home postcode
-# - nearest court of the right type
-# - the dx_number (if available) of the nearest court of the right type
-# - the distance to the nearest court of the right type
+console = Console(record=True)
 
 if __name__ == "__main__":
-    # [TODO]: write your answer here
-    pass
+
+    courts_table = create_table()
+    with open('people.csv', 'r', encoding='utf-8') as queries:
+        lines = csv.reader(queries)
+        next(lines)
+        for query in lines:
+            raw_data = fetch_data(query[1])
+            court = filter_by_court_distance(raw_data, query[2])
+            courts_table = add_person_matching_court_to_table(
+                courts_table, query, court)
+
+    console.print(courts_table)

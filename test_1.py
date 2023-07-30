@@ -1,14 +1,8 @@
-# [TODO]: step 1
-# Update the is_log_line function below to skip lines that are not valid log lines.
-# Valid log lines have a timestamp, error type, and message. For example, lines 1, 3,
-# 7 and 37 are all examples of lines (from sample.log) that would be filtered out.
-# There's no perfect way to do this: just decide what you think is reasonable to get
-# the test to pass. The only thing you are not allowed to do is filter out log lines
-# based on the exact row numbers you want to remove.
+'''libraries required to filter/validate information'''
 from datetime import datetime as dt
 
 
-def is_log_line(line):
+def is_log_line(line: str) -> bool:
     """Takes a log line and returns True if it is a valid log line and returns nothing
     if it is not.
     """
@@ -22,7 +16,7 @@ def is_log_line(line):
     e_type = separated_out[2]
     message = ' '.join(separated_out[3:])
     try:
-        valid_date = dt.strptime(date, '%d/%m/%y %H:%M:%S')
+        dt.strptime(date, '%d/%m/%y %H:%M:%S')
     except:
         return None
 
@@ -35,12 +29,7 @@ def is_log_line(line):
     return True
 
 
-# [TODO]: step 2
-# Update the get_dict function below so it converts a line of the logs into a
-# dictionary with keys for "timestamp", "log_level", and "message". The valid log
-# levels are `INFO`, `TRACE`, and `WARNING`. See lines 67 to 71 for how we expect the
-# results to look.
-def get_dict(line):
+def get_dict(line: str) -> dict:
     """Takes a log line and returns a dict with
     `timestamp`, `log_level`, `message` keys
     """
@@ -78,7 +67,7 @@ if __name__ == "__main__":
     # You can print out each line of the log file line by line
     # by uncommenting this code below
     # for i, line in enumerate(log_parser("sample.log")):
-    #     print(i, line)
+    #    print(i, line)
 
     # ---- TESTS ---- #
     # DO NOT CHANGE
