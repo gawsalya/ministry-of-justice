@@ -1,4 +1,5 @@
 pytest
+pylint
 requests
 requests-mock
 rich
