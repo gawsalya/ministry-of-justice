@@ -11,6 +11,7 @@ if __name__ == "__main__":
     with open('people.csv', 'r', encoding='utf-8') as queries:
         lines = csv.reader(queries)
         next(lines)
+
         for query in lines:
             raw_data = fetch_data(query[1])
             try:
