@@ -14,3 +14,8 @@ def fake_incorrect_time():
 @pytest.fixture
 def bad_format():
     return '22:00'
+
+
+@pytest.fixture
+def not_a_string():
+    return (120032)
