@@ -22,5 +22,5 @@ if __name__ == "__main__":
 
             courts_table = add_person_matching_court_to_table(
                 courts_table, query, court)
-
+    queries.close()
     console.print(courts_table)
