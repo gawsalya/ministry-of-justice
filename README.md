@@ -1,3 +1,6 @@
+# Ministry of justice
+This repository contains my solution for the ministry of justice technical assessment code. 
+
 # Data engineering Python tests
 
 There are 3 directories in this directory:
